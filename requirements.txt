@@ -1,0 +1,7 @@
+markdown-it-py==3.0.0
+mdurl==0.1.2
+psutil==7.0.0
+py_cpuinfo==9.0.0
+pygments==2.18.0
+rich==13.9.4
+rich-monokai==1.2.3

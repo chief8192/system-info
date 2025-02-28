@@ -1,0 +1,12 @@
+package(default_visibility = ["//visibility:public"])
+
+py_binary(
+    name = "system_info",
+    srcs = ["system_info.py"],
+    deps = [
+        "@pypi//psutil:pkg",
+        "@pypi//py_cpuinfo:pkg",
+        "@pypi//rich:pkg",
+        "@pypi//rich_monokai:pkg",
+    ],
+)

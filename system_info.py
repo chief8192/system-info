@@ -52,6 +52,20 @@ def SafeGet(d: dict, k: str) -> str:
     return str(d.get(k, "????"))
 
 
+def LoadOsRelease() -> dict[str, str]:
+    results = {}
+    os_release_path = "/etc/os-release"
+
+    if os.path.exists(os_release_path):
+        with open(os_release_path, "r") as f:
+            for line in f:
+                if "=" in line:
+                    pieces = line.split("=")
+                    results[pieces[0].strip('" \n')] = pieces[1].strip('" \n')
+
+    return results
+
+
 def main():
 
     # Set up the rich Console.
@@ -70,6 +84,7 @@ def main():
         vmem = psutil.virtual_memory()
         root_partition = psutil.disk_usage("/")
         if_addrs = psutil.net_if_addrs()
+        os_release = LoadOsRelease()
 
     # CPU section.
     table.add_row("cpu:", SafeGet(cpu_info, "brand_raw"))
@@ -115,7 +130,10 @@ def main():
     table.add_section()
 
     # OS section.
-    table.add_row("os:", f"{platform.system()} {platform.release()}")
+    table.add_row(
+        "os:",
+        f"{os_release['NAME']} {os_release['VERSION_ID']} ({os_release['VERSION_CODENAME']})",
+    )
     table.add_section()
 
     # Python section.

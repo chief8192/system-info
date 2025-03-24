@@ -92,6 +92,11 @@ def main():
     core_speed = SafeGet(cpu_info, "hz_actual_friendly")
     table.add_row("cores:", f"{core_count} x {core_speed}")
     table.add_row("arch:", SafeGet(cpu_info, "arch_string_raw"))
+    model_file = "/proc/device-tree/model"
+    if os.path.exists(model_file):
+        with open(model_file, "r") as f:
+            model = f.read().strip()
+        table.add_row("model:", model)
     table.add_section()
 
     # Memory section.

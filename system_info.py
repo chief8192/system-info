@@ -28,7 +28,7 @@ from rich.progress_bar import ProgressBar
 from rich.table import Table
 from rich.text import Text
 from richmonokai import MonokaiConsole, FOREGROUND, ATTRIBUTE
-from typing import Any, Optional
+from typing import Any, Optional, Dict
 from urllib.request import urlopen
 
 
@@ -52,7 +52,7 @@ def SafeGet(d: dict, k: str) -> str:
     return str(d.get(k, "????"))
 
 
-def LoadOsRelease() -> dict[str, str]:
+def LoadOsRelease() -> Dict[str, str]:
     results = {}
     os_release_path = "/etc/os-release"
 

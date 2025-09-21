@@ -105,12 +105,16 @@ def main():
     table.add_row("mem:", f"{mem_used} / {mem_total}  ({vmem.percent:.1f}%)")
     table.add_section()
 
+    # Build a map of mountpoints to filesystems.
+    fs_map = {p.mountpoint: p.fstype for p in psutil.disk_partitions()}
+
     # Disk section.
     disk_used = BytesToHuman(root_partition.used)
     disk_total = BytesToHuman(root_partition.total)
     table.add_row(
         f"disk:", f"{disk_used} / {disk_total} ({root_partition.percent:.1f}%)"
     )
+    table.add_row(f"fstype:", fs_map.get("/", "????"))
     table.add_section()
 
     # Network section.
